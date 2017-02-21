@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block title %} {% if new %} Super Sprinter 3000 - Add new Story {% else %} Super Sprinter
+3000 - Edit Story {% endif %} {% endblock %} {% block headblock %}{% if new %} Super Sprinter 3000 - Add new Story {% else
+%} Super Sprinter 3000 - Edit Story {% endif %}{% endblock %} {% block body %} {% if session.logged_in %}{% if new %}
+<form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+    <dl>
+        <dt>Story Title:</dt>
+        <dd><input type=text size=30 id=storyTitle name=storytitle></dd>
+        <dt>User Story:</dt>
+        <dd><textarea name=userstory id=userStory rows=5 cols=40></textarea></dd>
+        <dt>Accepting Criteria:</dt>
+        <dd><textarea name=acceptingcriteria id=acceptingCriteria rows=5 cols=40></textarea></dd>
+        <dt>Business Value:</dt>
+        <dd><input type="number" min="100" max="1500" step="100" size=10 id=businessValue name=businessvalue></dd>
+        <dt>Estimation(h):</dt>
+        <dd><input type="number" min="0.5" max="40" step="0.5" size=10 id=estimation name=estimation></dd>
+        <dt>Status:</dt>
+        <dd><select name="status" id=status>
+            <option value="Planing">Planing</option>
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="In Review">In Review</option>
+            <option value="Done">Done</option>
+            </select></dd>
+        <br>
+        <div align="right"><input type=submit id=sCreate value=Create></div>
+</form>
+{% else %}
+<form action="{{ url_for('update_entry', user_id=entry.id ) }}" method=post class=modify-entry>
+    <dl>
+        <dt>Story Title:</dt>
+        <dd><input type=text size=30 id=storyTitle name=storytitle value="{{ entry.story_title }}"></dd>
+        <dt>User Story:</dt>
+        <dd><textarea name=userstory id=userStory rows=5 cols=40>{{ entry.user_story }}</textarea></dd>
+        <dt>Accepting Criteria:</dt>
+        <dd>
+            <textarea name=acceptingcriteria id=acceptingCriteria rows=5 cols=40>{{ entry.accepting_criteria }}</textarea></dd>
+        <dt>Business Value:</dt>
+        <dd>
+            <input type="number" min="100" max="1500" step="100" size=10 id=businessValue name=businessvalue value="{{ entry.business_value }}"></dd>
+        <dt>Estimation(h):</dt>
+        <dd>
+            <input type="number" min="0.5" max="40" step="0.5" size=10 id=estimation name=estimation value="{{ entry.estimation }}"></dd>
+        <dt>Status:</dt>
+        <dd><select name="status" id=status value="{{ entry.status }}">
+            <option value="Planing">Planing</option>
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="In Review">In Review</option>
+            <option value="Done">Done</option>
+            </select></dd>
+        <br>
+        <div align="right"><input type=submit id=sUpdate value=Update></div>
+    </dl>
+</form>
+{% endif %}{% endif %} {% endblock %}

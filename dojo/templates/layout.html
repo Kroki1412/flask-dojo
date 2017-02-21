@@ -3,18 +3,16 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <div class=page>
     <h1>{% block headblock %}{% endblock %}</h1>
-    <div class=metanav>
-        {% if not session.logged_in %}
-        <a href="{{ url_for('login') }}">log in</a> {% else %}
-        <a href="{{ url_for('logout') }}">log out</a> {% endif %}
-    </div>
+
     {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
-    {% endfor %} {% if session.logged_in %}
+    {% endfor %}
     <div class=navi align="center">
-        <td><a href="/story"><button id=newEntry type="button">Creat New Entry</button></a></td>
+        <td><a href="/request-counter"><button id=get_request type="button">GET-Request</button></a></td>
         &emsp;
-        <td><a href="/list"><button id=listEntry type="button">List All Entrys</button></a></td>
+        <td><a href="/request-counter"><button id=post_request type="button">POST-Request</button></a></td>
+        &emsp;
+        <td><a href="/statistics"><button id=statistics_button type="button">Statistics</button></a></td>
     </div>
-    {% endif %} {% block body %}{% endblock %}
+    {% block body %}{% endblock %}
 </div>

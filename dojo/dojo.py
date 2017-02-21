@@ -50,7 +50,7 @@ def close_db(error):
 # base webpage
 @app.route('/')
 def show_app():
-    return render_template('list.html')
+    return render_template('general.html')
 
 
 @app.route('/request-counter', methods=['GET', 'POST'])
@@ -73,7 +73,10 @@ def request_counter():
 @app.route('/statistics')
 def statistics():
     flash('Here are the stats!')
-    return redirect(url_for('show_entries'))
+    entrys = Entries.select()
+    return render_template('stats.html', entry=entrys)
+
+   # return redirect(url_for('show_app'))
 
 
 # if __name__ == "__main__":

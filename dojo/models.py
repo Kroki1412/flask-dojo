@@ -3,12 +3,8 @@ from peewee import *
 
 
 class Entries(Model):
-    story_title = CharField()
-    user_story = TextField()
-    accepting_criteria = TextField()
-    business_value = IntegerField()
-    estimation = DecimalField()
-    status = CharField()
+    get_counter = IntegerField()
+    post_counter = IntegerField()
 
     class Meta:
         database = ConnectDatabase.db

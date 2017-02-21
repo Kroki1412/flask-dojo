@@ -1,0 +1,20 @@
+{% extends "layout.html" %} {% block title %} Code-Doojo {% endblock %} {% block headblock %}Code-Dojo{% endblock %} {% block
+body %}
+<ul class=entries>
+    <ul class=entries>
+        <br>
+        <table style="width:100%">
+            <tr>
+                <th>GET request</th>
+                <th>POST request</th>
+            </tr>
+            <div class=flash>You will need to have something that can be evaluated with if</div>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry.get_counter }}</td>
+                <td>{{ entry.post_counter }}</td>
+            </tr>
+            {% else %}
+            <li><em>Unbelievable.  No entries here so far</em> {% endfor %}
+    </ul>
+    {% endblock %}

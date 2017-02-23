@@ -3,9 +3,12 @@ body %}
 <div class=flash>Welcome!</div>
 <br>
 <div class=navi align="center">
-    <td><a href="/request-counter"><button id=get_request type="button">GET-Request</button></a></td>
+    <td><a href="/request_counter"><button id=get_request type="button">GET-Request</button></a></td>
     &emsp;
-    <td><a href="/request-counter"><button id=post_request type="button">POST-Request</button></a></td>
+    <br>
+    <form action="{{ url_for('request_counter') }}" method="post" class=>
+        <button type=submit name="post_request" value="upvote">POST-Request</button>
+    </form>
     &emsp;
     <td><a href="/statistics"><button id=statistics_button type="button">Statistics</button></a></td>
 </div>

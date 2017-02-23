@@ -29,6 +29,9 @@ app.config.from_envvar('DOJO_SETTINGS', silent=True)
 def init_db():
     ConnectDatabase.db.connect()
     ConnectDatabase.db.create_tables([Entries], safe=True)
+    entry = Entries.create(get_counter=0,
+                           post_counter=0)
+    entry.save()
 
 
 @app.cli.command('initdb')
@@ -53,30 +56,31 @@ def show_app():
     return render_template('general.html')
 
 
-@app.route('/request-counter', methods=['GET', 'POST'])
+@app.route('/request_counter', methods=['GET', 'POST'])
 def request_counter():
-    print(app.config['USERNAME'])
-    print(app.config['PASSWORD'])
-    error = None
     if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('show_entries'))
-    return render_template('login.html', error=error)
+        entry = Entries.get()
+        entry.post_counter += 1
+        entry.save()
+    else:
+        entry = Entries.get()
+        entry.get_counter += 1
+        entry.save()
+    return redirect(url_for('show_app'))
 
 
 @app.route('/statistics')
 def statistics():
     flash('Here are the stats!')
     entrys = Entries.select()
-    return render_template('stats.html', entry=entrys)
+    if entrys.where(Entries.get_counter != None or Entries.post_counter != None).exists():
+        # I have no clue why this is needed but else the data is not avaliable.
+        entry2 = Entries.get()
+        return render_template('stats.html', Data=True, entry=entry2)
+    else:
+        return render_template('stats.html', Data=False)
 
-   # return redirect(url_for('show_app'))
+# return redirect(url_for('show_app'))
 
 
 # if __name__ == "__main__":

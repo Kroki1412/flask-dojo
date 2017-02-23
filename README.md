@@ -29,3 +29,7 @@ Ideally this should start the server, and now you can reach it from your browser
 
 [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
+For the more lazy people run the following commands instead
+`chmod u+x run.sh`
+`sudo ./run.sh`
+
